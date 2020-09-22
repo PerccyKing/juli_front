@@ -72,12 +72,10 @@
     }
 
 
-    import JuliTableColum from "@/components/JuLi/Table/Colum/Index";
 
     export default {
         name: "JuliTable",
         components: {
-            JuliTableColum,
             exSlot
         },
         props: {

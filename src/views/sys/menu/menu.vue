@@ -36,43 +36,7 @@
                             format: this.operateFormat
                         },
                     ],
-                    data: {
-                        "page": 1,
-                        "total": 1,
-                        "records": 3,
-                        "rows": [
-                            {
-                                "id": "1299634999808016386",
-                                "resourceUrl": "",
-                                "resourceName": "系统管理",
-                                "resourceType": "10",
-                                "resourceCode": "SYS_MANAGE",
-                                "parentId": "",
-                                "icon": "el-icon-eleme",
-                                "serialNumber": 0
-                            },
-                            {
-                                "id": "1299635708557312001",
-                                "resourceUrl": "",
-                                "resourceName": "打卡管理",
-                                "resourceType": "10",
-                                "resourceCode": "PUNCH_MANAGE",
-                                "parentId": null,
-                                "icon": "fa-bolt",
-                                "serialNumber": 10
-                            },
-                            {
-                                "id": "1300405019106373634",
-                                "resourceUrl": "",
-                                "resourceName": "test",
-                                "resourceType": "10",
-                                "resourceCode": "TEST",
-                                "parentId": "",
-                                "icon": "",
-                                "serialNumber": 30
-                            }
-                        ]
-                    },
+                    url: '',
                     pageSizes: [10, 30, 50, 100],
                     pageSize: 10
                 }
