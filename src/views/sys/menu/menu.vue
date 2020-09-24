@@ -1,16 +1,28 @@
 <template>
     <div class="app-container">
-        <juli-table :config="config">
+        <juli-table :config="config" :expand="table">
             <template v-slot:operation-button>
                 <el-button type="primary" icon="el-icon-plus">新增</el-button>
             </template>
         </juli-table>
-
+        <el-dialog
+            title="提示"
+            :visible.sync="table.dialogVisible"
+            width="30%"
+            :before-close="handleClose">
+            <span>这是一段信息</span>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="table.dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="table.dialogVisible = false">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
+
 </template>
 
 <script>
     import JuliTable from "@/components/JuLi/Table/Index";
+    import {index} from "@/api/menu";
 
     export default {
         name: "Menu",
@@ -36,10 +48,15 @@
                             format: this.operateFormat
                         },
                     ],
+                    data: {},
                     url: '',
                     pageSizes: [10, 30, 50, 100],
                     pageSize: 10
-                }
+                },
+                table: {
+                    currentRow: null,
+                    dialogVisible: false
+                },
             }
         },
         methods: {
@@ -63,6 +80,13 @@
                             type: 'primary',
                             size: 'mini',
                             icon: 'el-icon-edit'
+                        },
+                        on: {
+                            click: function (e) {
+                                console.debug(params)
+                                params.expand.dialogVisible = true
+                                params.row.icon = 'el-icon-edit'
+                            }
                         }
                     }, '编辑'),
                     h('el-button', {
@@ -73,7 +97,27 @@
                         }
                     }, '删除')
                 ]);
+            },
+            setCurrent(row) {
+                this.$refs.singleTable.setCurrentRow(row);
+            },
+            editRow(val) {
+                this.table.currentRow = val;
+                this.table.dialogVisible = true;
+            },
+            handleClose(done) {
+                this.$confirm('确认关闭？')
+                    .then(_ => {
+                        done();
+                    })
+                    .catch(_ => {
+                    });
             }
+        },
+        created() {
+            index({size: 10, current: 1}).then(res => {
+                this.config.data = res.data
+            })
         }
     }
 </script>

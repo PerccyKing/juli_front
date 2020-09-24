@@ -19,7 +19,8 @@
                     <template slot-scope="scope">
                         <ex-slot v-if="item.format" :render="item.format" :row="scope.row"
                                  :index="scope.$index"
-                                 :column="item">
+                                 :column="item"
+                                 :expand="expand">
                         </ex-slot>
                         <span v-else>
                             {{scope.row[item.name]}}
@@ -52,6 +53,7 @@
             row: Object,
             render: Function,
             index: Number,
+            expand: Object,
             column: {
                 type: Object,
                 default: null
@@ -61,7 +63,8 @@
         render: (h, data) => {
             const params = {
                 row: data.props.row,
-                index: data.props.index
+                index: data.props.index,
+                expand: data.props.expand
             }
 
             if (data.props.column) {
@@ -70,7 +73,6 @@
             return data.props.render(h, params)
         }
     }
-
 
 
     export default {
@@ -82,6 +84,13 @@
             config: {
                 type: Object,
                 required: true,
+                default() {
+                    return {}
+                }
+            },
+            expand: {
+                type: Object,
+                required: false,
                 default() {
                     return {}
                 }
